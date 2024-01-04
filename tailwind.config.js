@@ -2,8 +2,13 @@
 export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
-		extend: {}
+		extend: {
+			colors: {
+				'vic-blue': '#00C5FB'
+			}
+		}
 	},
 	plugins: [require('daisyui')],
+	sans: ['Poppins'],
 	daisyui: { themes: ['night'] }
 };
