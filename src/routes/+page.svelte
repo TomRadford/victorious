@@ -71,7 +71,7 @@
 					<a href="https://wa.me/+27604922776">+27 60 492 2776</a>
 					<a href="mailto:ben@victoriousaudio.co.za">ben@victoriousaudio.co.za</a>
 
-					<p class=" text-xs">Based in Gqberha, South Africa</p>
+					<p class=" text-xs">Based in Gqeberha, South Africa</p>
 				</div>
 			</div>
 		</div>
