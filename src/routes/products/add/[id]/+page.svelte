@@ -66,7 +66,6 @@
 				<a href="/products"><XCircle /></a>
 			</div>
 		{:else}
-			<button on:click={addToCart}>ayy</button>
 			<div class="mb-4 flex w-full items-center justify-between border-b border-b-slate-700 pb-4">
 				<h3 class=" text-lg">
 					Select your options for the <span class="font-bold">{product.name}</span>

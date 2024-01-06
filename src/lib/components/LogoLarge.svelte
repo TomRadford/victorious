@@ -2,6 +2,8 @@
 	viewBox="-3349.5876 -1886.436 6848.6411 4102.9521"
 	xmlns="http://www.w3.org/2000/svg"
 	fill="currentColor"
+	width="114"
+	height="114"
 >
 	<g transform="matrix(1, 0, 0, -1, -3899.587646484375, 4596.40771484375)" style="">
 		<path
