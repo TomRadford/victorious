@@ -6,11 +6,12 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { productsData } from '$lib/data/products.js';
-	import { Select } from 'bits-ui';
-	import { Check, Palette, CaretUpDown } from 'phosphor-svelte';
-	import { colours } from '$lib/data/cart';
-	import { flyAndScale } from '$lib/utils/flyAndScale';
+	import { colours, logoType } from '$lib/data/cart';
 	import type { Order } from '$lib/types/cart';
+	import Combobox from '$lib/components/Combobox.svelte';
+	import CrownLogo from '/src/lib/assets/images/crown-logo.png?enhanced';
+	import VALogo from '/src/lib/assets/images/VA-logo.png?enhanced';
+	import { CircleOff, XCircle } from 'lucide-svelte';
 
 	const product: Product | undefined = productsData.find((p) => p.id === $page.params.id);
 
@@ -46,81 +47,102 @@
 			},
 			id: 'added'
 		});
+
+		goto('/products');
 	};
 
-	const coloursList = colours.map((c) => ({ label: c, value: c }));
-
-	$: console.log(newOrder);
+	const coloursList = colours.map((c) => ({ value: c }));
+	const logoList = logoType.map((c) => ({ value: c }));
 </script>
 
 <!-- Bind me to show! -->
 
-<div class="modal modal-open z-10" out:fade={{ duration: 200 }}>
-	<div class="modal-box">
+<div class="modal modal-open no-animation z-10" out:fade={{ duration: 200 }}>
+	<div class="modal-box no-animation">
 		{#if !product}
-			<h3 class="text-lg font-bold">No product found 🫢</h3>
-			<div class="modal-action">
-				<a class="btn" href="/products">Close</a>
+			<div class="flex w-full items-center justify-between">
+				<h3 class=" text-lg">No product found! 🫢</h3>
+
+				<a href="/products"><XCircle /></a>
 			</div>
 		{:else}
-			<h3 class="pb-4 text-lg">
-				Select your options for the <span class="font-bold">{product.name}</span>
-			</h3>
+			<button on:click={addToCart}>ayy</button>
+			<div class="mb-4 flex w-full items-center justify-between border-b border-b-slate-700 pb-4">
+				<h3 class=" text-lg">
+					Select your options for the <span class="font-bold">{product.name}</span>
+				</h3>
 
-			<form class="flex flex-col">
-				<label for="baseColour" class="label">Base Colour</label>
-				<Select.Root
-					highlightOnHover
-					items={coloursList}
-					selected={{ value: newOrder.baseColour, label: newOrder.baseColour }}
-					onSelectedChange={(s) => {
-						newOrder.baseColour = s?.value;
-					}}
-				>
-					<Select.Trigger
-						class="input input-bordered input-primary flex w-full flex-row items-center font-medium"
-						aria-label="Select a theme"
-					>
-						<Select.Value class="text-sm" placeholder="Select a theme" />
-						<CaretUpDown class="text-muted-foreground  ml-auto" />
-					</Select.Trigger>
+				<a href="/products"><XCircle /></a>
+			</div>
 
-					<Select.Content
-						class="z-20 h-60 overflow-scroll rounded-box bg-base-100 pt-2 shadow"
-						transition={flyAndScale}
-						sideOffset={8}
-						fitViewport={true}
-						sameWidth
-						asChild
-					>
-						{#each coloursList as item}
-							<Select.Item
-								class="flex h-10 w-full items-center rounded-box px-4 text-sm font-medium hover:cursor-pointer hover:bg-slate-600"
-								value={item.value}
-								label={item.label}
-							>
-								{item.label}
-								<Select.ItemIndicator class="ml-auto">
-									<Check />
-								</Select.ItemIndicator>
-							</Select.Item>
-						{/each}
-					</Select.Content>
-					<Select.Input name="baseColour" />
-				</Select.Root>
+			<div class="flex flex-col">
+				<Combobox
+					bind:optionValue={newOrder.baseColour}
+					options={coloursList}
+					description="Base Colour"
+					canAdd
+				/>
+				<Combobox
+					bind:optionValue={newOrder.baseColour}
+					options={coloursList}
+					description="Faceplate Colour"
+					canAdd
+				/>
+				<div class="flex w-full gap-3">
+					<Combobox
+						bind:optionValue={newOrder.logoType.left}
+						options={logoList}
+						description="Left Ear Logo"
+					/>
 
-				<label for="name">Name</label>
-				<input type="text" name="name" />
+					<Combobox
+						bind:optionValue={newOrder.logoType.right}
+						options={logoList}
+						description="Right Ear Logo"
+					/>
+				</div>
+				<div class="flex w-full">
+					<div class="w-1/2">
+						{#if newOrder.logoType.left === 'Crown'}
+							<enhanced:img src={CrownLogo} class="mx-auto" />
+						{:else if newOrder.logoType.left === 'VA'}
+							<enhanced:img src={VALogo} class="mx-auto" />
+						{:else}
+							<div class="flex h-full justify-center">
+								<CircleOff class="mx-auto my-auto" size={130} />
+							</div>
+						{/if}
+					</div>
+					<div class="w-1/2">
+						{#if newOrder.logoType.right === 'Crown'}
+							<enhanced:img src={CrownLogo} class="mx-auto" />
+						{:else if newOrder.logoType.right === 'VA'}
+							<enhanced:img src={VALogo} class="mx-auto" />
+						{:else}
+							<div class="flex h-full justify-center">
+								<CircleOff class="mx-auto my-auto" size={130} />
+							</div>
+						{/if}
+					</div>
+				</div>
+				<div class="flex w-full gap-3">
+					<Combobox
+						bind:optionValue={newOrder.logoColour.left}
+						options={coloursList}
+						description="Left Ear Logo Colour"
+					/>
 
-				<label for="email">E-mail</label>
-				<input type="email" name="email" />
+					<Combobox
+						bind:optionValue={newOrder.logoColour.right}
+						options={coloursList}
+						description="Right Ear Logo Colour"
+					/>
+				</div>
 
 				<div class="modal-action">
-					<!-- if there is a button in form, it will close the modal -->
-					<button class="btn btn-primary" on:click={addToCart}>Add and keep shopping</button>
-					<button class="btn btn-primary" on:click={addToCart}>Go to cart</button>
+					<button class="btn btn-primary" on:click={addToCart}>Add to cart</button>
 				</div>
-			</form>
+			</div>
 		{/if}
 	</div>
 </div>

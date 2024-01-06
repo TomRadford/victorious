@@ -2,31 +2,9 @@
 	import { goto } from '$app/navigation';
 	import { cartStore } from '$lib/stores/cart';
 	import type { Product } from '$lib/types/product';
-	import { toast } from 'svelte-sonner';
 	export let product: Product;
 
 	$: existingIndex = $cartStore.findIndex((p) => p.product.id === product.id);
-
-	const addToCart = () => {
-		let message: string;
-		if (existingIndex === -1) {
-			$cartStore = [...$cartStore, { product, qty: 1 }];
-			message = `Added ${product.name} to cart!`;
-		} else {
-			$cartStore[existingIndex].qty = $cartStore[existingIndex].qty + 1;
-			message = `Added another ${product.name} to cart!`;
-		}
-		toast.dismiss('added');
-		toast.success(message, {
-			action: {
-				label: 'Cart',
-				onClick: () => {
-					goto('/cart');
-				}
-			},
-			id: 'added'
-		});
-	};
 </script>
 
 <div class="card w-96 bg-base-100 shadow-xl">
@@ -48,9 +26,13 @@
 			)}
 		</h4>
 		<div class="card-actions justify-center pt-10">
-			<button on:click={addToCart} class="btn btn-primary"
+			<button
+				on:click={() => {
+					goto(`/products/add/${product.id}`, { noScroll: true });
+				}}
+				class="btn btn-primary"
 				>{#if existingIndex === -1}
-					Order now!{:else}Add another ({$cartStore[existingIndex].qty}){/if}</button
+					Order now!{:else}Add another ({$cartStore[existingIndex].orders.length}){/if}</button
 			>
 		</div>
 	</div>

@@ -9,7 +9,7 @@
 	preparePageTransition();
 </script>
 
-<Toaster toastOptions={{}} position="bottom-center" />
+<Toaster toastOptions={{ duration: 5000 }} position="bottom-center" />
 
 <div class="relative mx-2 min-h-screen md:mx-6">
 	<!--Nav-->
