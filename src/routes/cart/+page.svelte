@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { cartLineItemsStore, cartStore } from '$lib/stores/cart';
 	import type { CartLine } from '$lib/types/cart';
-	import { Delete, ListOrdered, Trash } from 'lucide-svelte';
-
-	$: console.log($cartLineItemsStore);
+	import { Trash } from 'lucide-svelte';
+	import { message } from 'sveltekit-superforms/server';
 
 	const handleDelete = (line: CartLine) => {
 		const product = $cartStore[line.productIndex];
@@ -17,7 +16,7 @@
 <svelte:head>
 	<title>Victorious Audio | Cart</title>
 </svelte:head>
-<div class="container mx-auto flex flex-col flex-wrap items-center">
+<div class="container mx-auto flex max-w-5xl flex-col flex-wrap items-center">
 	<div class="mx-auto flex w-full flex-col justify-center overflow-y-hidden xl:w-2/5">
 		<h1 class="my-4 text-left text-4xl font-bold leading-tight text-white opacity-75 md:text-5xl">
 			Your cart

@@ -24,7 +24,7 @@
 
 			<div class="flex w-1/2 content-center justify-end">
 				<a
-					class="hover:text-underline relative inline-block h-14 w-14 transform p-2 text-center text-blue-300 no-underline duration-300 ease-in-out hover:scale-125 hover:text-vic-blue md:h-auto md:p-4"
+					class="hover:text-underline relative inline-block h-14 w-14 transform p-2 p-4 text-center text-blue-300 no-underline duration-300 ease-in-out hover:scale-125 hover:text-vic-blue"
 					href="/cart"
 				>
 					{#if $cartStore.length}<div
