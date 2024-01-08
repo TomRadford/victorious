@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { cartStore } from '$lib/stores/cart';
 	import type { Product } from '$lib/types/product';
+	import { formatCurrency } from '$lib/utils/formatCurrency';
 	export let product: Product;
 
 	$: existingIndex = $cartStore.findIndex((p) => p.product.id === product.id);
@@ -21,9 +22,7 @@
 		</h2>
 		<p>{product.description}</p>
 		<h4 class="text-3xl font-bold">
-			{new Intl.NumberFormat('en-ZA', { style: 'currency', currency: 'ZAR' }).format(
-				product.startingPrice
-			)}
+			{formatCurrency(product.startingPrice)}
 		</h4>
 		<div class="card-actions justify-center pt-10">
 			<button

@@ -13,6 +13,7 @@ datasource db {
 model Line {
   id              String @id @default(uuid())
   productName     String
+  productId       String
   price           Int
   baseColour      String
   faceplateColour String

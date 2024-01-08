@@ -2,12 +2,13 @@ import { z } from 'zod';
 import { message, superValidate } from 'sveltekit-superforms/server';
 import { render } from 'svelte-email';
 import sendgrid, { type MailDataRequired } from '@sendgrid/mail';
-import EmailTemplate from '$lib/emails/EmailTemplate.svelte';
+
 import { env } from '$env/dynamic/private';
 import prisma from '$lib/prisma.js';
 
 const lineSchema = z.object({
 	productName: z.string(),
+	productId: z.string(),
 	price: z.number(),
 	baseColour: z.string(),
 	faceplateColour: z.string(),
@@ -78,13 +79,15 @@ export const actions = {
 		const lines = await prisma.line.createMany({
 			data: form.data.order.map((line) => ({
 				productName: line.productName,
+				productId: line.productId,
 				price: line.price,
 				baseColour: line.baseColour,
 				faceplateColour: line.faceplateColour,
 				logoTypeLeft: line.logoTypeLeft,
 				logoTypeRight: line.logoTypeRight,
 				logoColourLeft: line.logoColourRight,
-				logoColourRight: line.logoColourRight
+				logoColourRight: line.logoColourRight,
+				orderId: order.id
 			}))
 		});
 

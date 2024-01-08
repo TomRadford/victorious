@@ -15,8 +15,9 @@
 				Precision Engineering, Personalized Experience
 			</p>
 
-			<div class="flex items-center justify-center pt-4">
+			<div class="flex items-center justify-center gap-4 pt-4">
 				<a href="/products" class="btn btn-outline btn-primary"> Products </a>
+				<a href="/how-to-order" class="btn btn-outline btn-primary"> How to order </a>
 			</div>
 		</div>
 

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { cartLineItemsStore, cartStore } from '$lib/stores/cart';
 	import type { CartLine } from '$lib/types/cart';
+	import { formatCurrency } from '$lib/utils/formatCurrency';
 	import { Trash } from 'lucide-svelte';
 	import { message } from 'sveltekit-superforms/server';
 
@@ -82,11 +83,7 @@
 								><div class="">{line.order.logoType.right}</div>
 								<div class="text-sm opacity-50">{line.order.logoColour.right}</div></td
 							>
-							<td
-								>{new Intl.NumberFormat('en-ZA', { style: 'currency', currency: 'ZAR' }).format(
-									line.product.startingPrice
-								)}</td
-							>
+							<td>{formatCurrency(line.product.startingPrice)}</td>
 							<th>
 								<button
 									class="btn btn-ghost btn-sm"
@@ -104,9 +101,7 @@
 			<div>
 				<div class="">Total:</div>
 				<p class="text-2xl font-bold">
-					{new Intl.NumberFormat('en-ZA', { style: 'currency', currency: 'ZAR' }).format(
-						$cartLineItemsStore.reduce((acc, c) => acc + c.product.startingPrice, 0)
-					)}
+					{formatCurrency($cartLineItemsStore.reduce((acc, c) => acc + c.product.startingPrice, 0))}
 				</p>
 			</div>
 			<a href="/cart/checkout" class="btn btn-primary">Checkout</a>

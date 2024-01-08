@@ -1,4 +1,4 @@
-import EmailTemplate from '$lib/emails/EmailTemplate.svelte';
+import EmailTemplate from '$lib/emails/CustomerEmailTemplate.svelte';
 import { render } from 'svelte-email';
 
 export function GET() {
