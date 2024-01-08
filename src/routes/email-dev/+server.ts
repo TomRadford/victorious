@@ -3,7 +3,7 @@ import { render } from 'svelte-email';
 
 export function GET() {
 	const html = render({
-		template: EmailTemplate
+		template: EmailTpemplate
 	});
 
 	return new Response(html, {

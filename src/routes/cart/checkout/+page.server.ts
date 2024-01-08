@@ -1,7 +1,8 @@
 import { z } from 'zod';
 import { message, superValidate } from 'sveltekit-superforms/server';
-import { render } from 'svelte-email';
 import sendgrid, { type MailDataRequired } from '@sendgrid/mail';
+import Email from '$lib/emails/Email';
+import { render } from '@react-email/render';
 
 import { env } from '$env/dynamic/private';
 import prisma from '$lib/prisma.js';
@@ -53,63 +54,22 @@ export const actions = {
 			return message(form, { form });
 		}
 
-		// Create DB Entries
-		const existingCustomer = await prisma.customer.findUnique({
-			where: { email: form.data.email }
-		});
-		if (!existingCustomer) {
-			await prisma.customer.create({
-				data: {
-					email: form.data.email,
-					phone: form.data.phone,
-					name: form.data.name,
-					address1: form.data.address1,
-					address2: form.data.address2,
-					city: form.data.city,
-					province: form.data.province,
-					zipcode: form.data.zipcode
-				}
-			});
-		}
-
-		const order = await prisma.order.create({
-			data: { customerEmail: form.data.email }
-		});
-
-		const lines = await prisma.line.createMany({
-			data: form.data.order.map((line) => ({
-				productName: line.productName,
-				productId: line.productId,
-				price: line.price,
-				baseColour: line.baseColour,
-				faceplateColour: line.faceplateColour,
-				logoTypeLeft: line.logoTypeLeft,
-				logoTypeRight: line.logoTypeRight,
-				logoColourLeft: line.logoColourRight,
-				logoColourRight: line.logoColourRight,
-				orderId: order.id
-			}))
-		});
-
-		// Yep, return { form } here too
-		return message(form, 'success');
-
-		const customerEmailHtml = render({
-			template: EmailTemplate
-			// props: {
-			// 	name: 'Svelte'
-			// }
-		});
+		const emailHtml = render(Email({}));
 
 		const customerOptions: MailDataRequired = {
 			to: form.data.email,
 			from: { name: 'Victorious Audio', email: 'mail@victoriousaudio.co.za' },
 			// cc: 'ben@victoriousaudio.co.za',
-			cc: 'tom@theradford.com',
+			// cc: 'tom@theradford.com',
 			subject: 'New Order',
-			html: customerEmailHtml
+			html: emailHtml
 		};
 
 		await sendgrid.send(customerOptions);
+
+		// Yep, return { form } here too
+		return message(form, 'success');
+
+		//
 	}
 };
