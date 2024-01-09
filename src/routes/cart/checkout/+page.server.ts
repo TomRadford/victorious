@@ -1,11 +1,12 @@
 import { z } from 'zod';
 import { message, superValidate } from 'sveltekit-superforms/server';
 import sendgrid, { type MailDataRequired } from '@sendgrid/mail';
-import Email from '$lib/emails/Email';
+import CustomerEmail from '$lib/emails/CustomerEmail';
 import { render } from '@react-email/render';
-
 import { env } from '$env/dynamic/private';
 import prisma from '$lib/prisma.js';
+import type { Customer } from '@prisma/client';
+import { error } from '@sveltejs/kit';
 
 const lineSchema = z.object({
 	productName: z.string(),
@@ -46,7 +47,6 @@ export const load = async () => {
 export const actions = {
 	default: async ({ request }) => {
 		const form = await superValidate(request, orderSchema);
-		console.log('POST', form.data.order);
 
 		// Convenient validation check:
 		if (!form.valid) {
@@ -54,22 +54,70 @@ export const actions = {
 			return message(form, { form });
 		}
 
-		const emailHtml = render(Email({}));
+		// Create DB Entries
+		const existingCustomer = await prisma.customer.findUnique({
+			where: { email: form.data.email }
+		});
+		let newCustomer: Customer | undefined;
+		if (!existingCustomer) {
+			newCustomer = await prisma.customer.create({
+				data: {
+					email: form.data.email,
+					phone: form.data.phone,
+					name: form.data.name,
+					address1: form.data.address1,
+					address2: form.data.address2,
+					city: form.data.city,
+					province: form.data.province,
+					zipcode: form.data.zipcode
+				}
+			});
+		} else {
+			newCustomer = undefined;
+		}
 
-		const customerOptions: MailDataRequired = {
-			to: form.data.email,
-			from: { name: 'Victorious Audio', email: 'mail@victoriousaudio.co.za' },
-			// cc: 'ben@victoriousaudio.co.za',
-			// cc: 'tom@theradford.com',
-			subject: 'New Order',
-			html: emailHtml
-		};
+		const customer = existingCustomer ?? newCustomer;
 
-		await sendgrid.send(customerOptions);
+		const order = await prisma.order.create({
+			data: { customerEmail: form.data.email }
+		});
 
-		// Yep, return { form } here too
-		return message(form, 'success');
+		const lines = await prisma.$transaction(
+			form.data.order.map((line) =>
+				prisma.line.create({
+					data: {
+						productName: line.productName,
+						price: line.price,
+						baseColour: line.baseColour,
+						faceplateColour: line.faceplateColour,
+						logoTypeLeft: line.logoTypeLeft,
+						logoTypeRight: line.logoTypeRight,
+						logoColourLeft: line.logoColourRight,
+						logoColourRight: line.logoColourRight,
+						productId: line.productId,
+						orderId: order.id
+					}
+				})
+			)
+		);
+		if (customer && lines && order) {
+			const emailHtml = render(CustomerEmail({ customer, lines, order }));
 
-		//
+			const customerEmailOptions: MailDataRequired = {
+				to: form.data.email,
+				from: { name: 'Victorious Audio', email: 'mail@victoriousaudio.co.za' },
+				cc: 'ben@victoriousaudio.co.za',
+				// cc: 'tom@theradford.com',
+				subject: `Your Order (VA${order.id.toString().padStart(4, '0')})`,
+				html: emailHtml
+			};
+
+			await sendgrid.send(customerEmailOptions);
+
+			// Yep, return { form } here too
+			return message(form, 'success');
+		} else {
+			throw error(500, 'Database error');
+		}
 	}
 };

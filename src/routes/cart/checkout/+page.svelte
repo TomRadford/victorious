@@ -32,8 +32,6 @@
 			price: line.product.startingPrice
 		}));
 	}
-
-	$: console.log($form.order);
 </script>
 
 <svelte:head>

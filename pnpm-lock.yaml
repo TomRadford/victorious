@@ -32,9 +32,6 @@ dependencies:
   react-email:
     specifier: 1.10.0
     version: 1.10.0
-  svelte-email:
-    specifier: ^0.0.4
-    version: 0.0.4
 
 devDependencies:
   '@melt-ui/pp':
@@ -4316,14 +4313,6 @@ packages:
       - sugarss
     dev: true
 
-  /svelte-email@0.0.4:
-    resolution: {integrity: sha512-v3lMKxz6aaNdFstERH5r7BMTrxw0JWTPcc0Gubjcd8l++uyiol53tCk9INfMgMV4EyZy7WFOs24uurt4pxpMjQ==}
-    dependencies:
-      html-to-text: 9.0.5
-      pretty: 2.0.0
-      svelte: 3.59.2
-    dev: false
-
   /svelte-eslint-parser@0.33.1(svelte@4.2.8):
     resolution: {integrity: sha512-vo7xPGTlKBGdLH8T5L64FipvTrqv3OQRx9d2z5X05KKZDlF4rQk8KViZO4flKERY+5BiVdOh7zZ7JGJWo5P0uA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
@@ -4413,11 +4402,6 @@ packages:
     dependencies:
       svelte: 4.2.8
     dev: true
-
-  /svelte@3.59.2:
-    resolution: {integrity: sha512-vzSyuGr3eEoAtT/A6bmajosJZIUWySzY2CzB3w2pgPvnkUjGqlDnsNnA0PMO+mMAhuyMul6C2uuZzY6ELSkzyA==}
-    engines: {node: '>= 8'}
-    dev: false
 
   /svelte@4.2.8:
     resolution: {integrity: sha512-hU6dh1MPl8gh6klQZwK/n73GiAHiR95IkFsesLPbMeEZi36ydaXL/ZAb4g9sayT0MXzpxyZjR28yderJHxcmYA==}
