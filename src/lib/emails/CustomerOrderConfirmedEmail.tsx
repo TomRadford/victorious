@@ -1,4 +1,4 @@
-import { formatCurrency } from '../../lib/utils/formatCurrency';
+import { formatCurrency } from '../utils/formatCurrency';
 import type { Customer, Line, Order } from '@prisma/client';
 import {
 	Body,
@@ -17,12 +17,16 @@ import {
 } from '@react-email/components';
 import * as React from 'react';
 
-const baseUrl = process.env.VERCEL_URL
-	? `https://${process.env.VERCEL_URL}`
-	: 'http://localhost:5173';
+const baseUrl = `https://victoriousaudio.co.za`;
 
-export const CustomerEmail = ({
-	order = { customerEmail: 'test@test.com', id: 3, createdAt: new Date(), updatedAt: new Date() },
+export const CustomerOrderConfirmedEmail = ({
+	order = {
+		customerEmail: 'test@test.com',
+		id: 3,
+		createdAt: new Date(),
+		updatedAt: new Date(),
+		approved: true
+	},
 	lines = [
 		{
 			orderId: 3,
@@ -35,9 +39,7 @@ export const CustomerEmail = ({
 			logoColourLeft: 'black',
 			logoColourRight: 'black',
 			logoTypeLeft: 'VA',
-			logoTypeRight: 'None',
-			logoColourLeft: 'Black',
-			logoColourRight: 'White'
+			logoTypeRight: 'None'
 		},
 		{
 			orderId: 4,
@@ -50,9 +52,7 @@ export const CustomerEmail = ({
 			logoColourLeft: 'black',
 			logoColourRight: 'black',
 			logoTypeLeft: 'VA',
-			logoTypeRight: 'None',
-			logoColourLeft: 'Black',
-			logoColourRight: 'White'
+			logoTypeRight: 'None'
 		}
 	],
 	customer = {
@@ -265,6 +265,11 @@ export const CustomerEmail = ({
 							</Column>
 						</Row>
 					</Section>
+					<Section style={{ width: '100%' }}>
+						<Text style={{ textAlign: 'center' }}>
+							LEAD TIME ON RECEIVING OF PAYMENT TO DELIVERY IS 21 DAYS.
+						</Text>
+					</Section>
 					<Section>
 						<Column align="center" style={ctaTitle}>
 							<Text style={ctaText}>Next Steps</Text>
@@ -323,7 +328,7 @@ export const CustomerEmail = ({
 	);
 };
 
-export default CustomerEmail;
+export default CustomerOrderConfirmedEmail;
 
 const main = {
 	fontFamily: '"Helvetica Neue",Helvetica,Arial,sans-serif',

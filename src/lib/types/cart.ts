@@ -11,4 +11,9 @@ export type Order = {
 	logoColour: { left: ColoursUnion; right: ColoursUnion };
 };
 export type Cart = { product: Product; orders: Order[] }[];
-export type CartLine = { product: Product; order: Order; productIndex: number; orderIndex: number };
+export type CartLine = {
+	product: Product;
+	order: Order;
+	productIndex?: number;
+	orderIndex?: number;
+};

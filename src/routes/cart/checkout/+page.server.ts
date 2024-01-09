@@ -1,7 +1,9 @@
 import { z } from 'zod';
 import { message, superValidate } from 'sveltekit-superforms/server';
 import sendgrid, { type MailDataRequired } from '@sendgrid/mail';
-import CustomerEmail from '$lib/emails/CustomerEmail';
+import CustomerOrderSentEmail from '$lib/emails/CustomerOrderSentEmail';
+import AdminNewOrderEmail from '$lib/emails/AdminNewOrderEmail';
+
 import { render } from '@react-email/render';
 import { env } from '$env/dynamic/private';
 import prisma from '$lib/prisma.js';
@@ -101,18 +103,30 @@ export const actions = {
 			)
 		);
 		if (customer && lines && order) {
-			const emailHtml = render(CustomerEmail({ customer, lines, order }));
+			const customerEmailHtml = render(CustomerOrderSentEmail({ customer, lines, order }));
 
 			const customerEmailOptions: MailDataRequired = {
 				to: form.data.email,
 				from: { name: 'Victorious Audio', email: 'mail@victoriousaudio.co.za' },
-				cc: 'ben@victoriousaudio.co.za',
+
 				// cc: 'tom@theradford.com',
 				subject: `Your Order (VA${order.id.toString().padStart(4, '0')})`,
-				html: emailHtml
+				html: customerEmailHtml
 			};
 
 			await sendgrid.send(customerEmailOptions);
+
+			const approveUrl = `https://victoriousaudio.co.za/approve/${env.PASS}/${order.id}`;
+			const adminEmailHtml = render(AdminNewOrderEmail({ customer, lines, order, approveUrl }));
+
+			const adminEmailOptions: MailDataRequired = {
+				to: 'ben@victoriousaudio.co.za',
+				from: { name: 'Victorious Audio', email: 'mail@victoriousaudio.co.za' },
+				subject: `NEW ORDER (VA${order.id.toString().padStart(4, '0')})`,
+				html: adminEmailHtml
+			};
+
+			await sendgrid.send(adminEmailOptions);
 
 			// Yep, return { form } here too
 			return message(form, 'success');

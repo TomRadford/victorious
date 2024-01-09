@@ -43,6 +43,7 @@ model Order {
   lines         Line[]
   customer      Customer @relation(fields: [customerEmail], references: [email])
   customerEmail String
+  approved      Boolean  @default(false)
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
