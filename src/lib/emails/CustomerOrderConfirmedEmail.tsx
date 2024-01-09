@@ -97,8 +97,7 @@ export const CustomerOrderConfirmedEmail = ({
 						<Text style={stepsText}>
 							Dear {customer.name},<br />
 							Thank you for choosing Victorious Audio for your recent purchase. We are pleased to
-							confirm your order. Please find <strong>EFT details</strong> to make payment below and
-							the PDF invoice attached to this email.
+							confirm your order. Please find <strong>EFT details</strong> to make payment below.
 						</Text>
 					</Section>
 					<Section style={titleTable}>
