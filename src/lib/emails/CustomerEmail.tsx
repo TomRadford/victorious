@@ -181,7 +181,7 @@ export const CustomerEmail = ({
 											{line.logoTypeLeft === 'None' ? `` : `in ${line.logoColourRight}`}
 										</Text>
 										<Text style={productDescription}>
-											Logo right ear: {line.logoTypeRight}
+											Logo right ear: {line.logoTypeRight}{' '}
 											{line.logoTypeRight === 'None' ? `` : `in ${line.logoColourRight}`}
 										</Text>
 									</Column>

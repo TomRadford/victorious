@@ -27,8 +27,8 @@
 			faceplateColour: line.order.faceplateColour,
 			logoColourLeft: line.order.logoColour.left,
 			logoColourRight: line.order.logoColour.right,
-			logoTypeLeft: line.order.logoColour.left,
-			logoTypeRight: line.order.logoColour.right,
+			logoTypeLeft: line.order.logoType.left,
+			logoTypeRight: line.order.logoType.right,
 			price: line.product.startingPrice
 		}));
 	}
