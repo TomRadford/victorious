@@ -4,7 +4,7 @@
 	import type { CartLine } from '$lib/types/cart';
 
 	const handleDelete = (line: CartLine) => {
-		if (line.orderIndex && line.productIndex) {
+		if (typeof line.orderIndex === 'number' && typeof line.productIndex === 'number') {
 			const product = $cartStore[line.productIndex];
 			$cartStore[line.productIndex].orders = product.orders.filter((_, i) => i !== line.orderIndex);
 			if (!$cartStore[line.productIndex].orders.length) {
