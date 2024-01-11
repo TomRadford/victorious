@@ -1,25 +1,26 @@
 import { z } from 'zod';
 import { message, superValidate } from 'sveltekit-superforms/server';
-import sendgrid, { type MailDataRequired } from '@sendgrid/mail';
-import CustomerOrderSentEmail from '$lib/emails/CustomerOrderSentEmail';
-import AdminNewOrderEmail from '$lib/emails/AdminNewOrderEmail';
-
-import { render } from '@react-email/render';
-import { env } from '$env/dynamic/private';
-import prisma from '$lib/prisma.js';
-import type { Customer } from '@prisma/client';
 import { error, redirect } from '@sveltejs/kit';
+import { env } from '$env/dynamic/private';
 
 const authSchema = z.object({
 	pass: z.string().min(5)
 });
 
-export const load = async () => {
+export const load = async ({ cookies }) => {
+	const pass = cookies.get('pass');
 	// Server API:
 	const form = await superValidate(authSchema);
 
+	if (pass === env.PASS) {
+		return {
+			alreadyAuthed: true,
+			form
+		};
+	}
+
 	// Unless you throw, always return { form } in load and form actions.
-	return { form };
+	return { alreadyAuthed: false, form };
 };
 
 export const actions = {
