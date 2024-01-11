@@ -27,7 +27,7 @@
 				<a href="/images/case">
 					<enhanced:img
 						src="/src/lib/assets/images/case.png"
-						class="mx-auto w-full -rotate-6 transform transition duration-700 ease-in-out hover:rotate-6 hover:scale-105 md:w-4/5"
+						class="mx-auto w-full transform transition duration-700 ease-in-out hover:scale-105 md:w-4/5"
 					/>
 				</a>
 			</div>
@@ -39,7 +39,7 @@
 				<div style:--tag="side-profile">
 					<enhanced:img
 						src="/src/lib/assets/images/side-profile.jpeg"
-						class="mx-auto w-1/2 rotate-3 transform transition duration-700 ease-in-out hover:-rotate-3 hover:scale-105"
+						class="mx-auto w-1/2 transform transition duration-700 ease-in-out hover:scale-105"
 					/>
 				</div>
 			</a>
@@ -47,7 +47,7 @@
 				<p class="pb-8 text-center font-bold text-blue-400 lg:pb-6">About us</p>
 
 				<div
-					class="fade-in mx-auto flex w-full max-w-lg justify-center pb-24 md:justify-start lg:pb-0"
+					class="fade-in mx-auto flex w-full max-w-lg justify-center pb-24 text-center md:justify-start lg:pb-0"
 				>
 					<p>
 						Welcome to Victorious Audio, where passion meets precision in the pursuit of
