@@ -20,7 +20,7 @@
 	let newOrder: Order = {
 		baseColour: 'Clear',
 		faceplateColour: 'Clear',
-		logoColour: { left: 'Clear', right: 'Clear' },
+		logoColour: { left: 'Black', right: 'Black' },
 		logoType: { left: 'VA', right: 'Crown' }
 	};
 
@@ -125,17 +125,24 @@
 					</div>
 				</div>
 				<div class="flex w-full gap-3">
-					<Combobox
-						bind:optionValue={newOrder.logoColour.left}
-						options={coloursList}
-						description="Left Ear Logo Colour"
-					/>
-
-					<Combobox
-						bind:optionValue={newOrder.logoColour.right}
-						options={coloursList}
-						description="Right Ear Logo Colour"
-					/>
+					<div class="w-1/2">
+						{#if newOrder.logoType.left !== 'None'}
+							<Combobox
+								bind:optionValue={newOrder.logoColour.left}
+								options={coloursList.filter((c) => c.value !== 'Clear')}
+								description="Left Ear Logo Colour"
+							/>
+						{/if}
+					</div>
+					<div class="w-1/2">
+						{#if newOrder.logoType.right !== 'None'}
+							<Combobox
+								bind:optionValue={newOrder.logoColour.right}
+								options={coloursList.filter((c) => c.value !== 'Clear')}
+								description="Right Ear Logo Colour"
+							/>
+						{/if}
+					</div>
 				</div>
 
 				<div class="modal-action">
