@@ -6,9 +6,9 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	const userToken = cookies.get('pass');
 
-	if (event.url.pathname.startsWith('/approve'))
+	if (event.url.pathname.startsWith('/admin'))
 		if (userToken !== env.PASS) {
-			throw redirect(307, `/admin-auth?redir=${event.url.pathname}`);
+			throw redirect(307, `/auth?redir=${event.url.pathname}`);
 		}
 
 	const response = await resolve(event); // Stage 2

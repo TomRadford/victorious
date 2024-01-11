@@ -116,7 +116,7 @@ export const actions = {
 
 			await sendgrid.send(customerEmailOptions);
 
-			const approveUrl = `https://victoriousaudio.co.za/approve/${order.id}`;
+			const approveUrl = `https://victoriousaudio.co.za/admin/orders/${order.id}`;
 			const adminEmailHtml = render(AdminNewOrderEmail({ customer, lines, order, approveUrl }));
 
 			const adminEmailOptions: MailDataRequired = {
