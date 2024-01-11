@@ -76,13 +76,13 @@
 			class=" input input-bordered input-primary w-full"
 			placeholder={description}
 		/>
-		<div class="text-magnum-900 absolute right-2 top-1/2 z-10 -translate-y-1/2">
+		<!-- <div class="text-magnum-900 absolute right-2 top-1/2 z-10 -translate-y-1/2">
 			{#if $open}
 				<ChevronUp class="square-4" />
 			{:else}
 				<ChevronDown class="square-4" />
 			{/if}
-		</div>
+		</div> -->
 	</div>
 </div>
 {#if $open}
