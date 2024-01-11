@@ -26,7 +26,7 @@
 			<div style:--tag="case">
 				<a href="/images/case">
 					<enhanced:img
-						src="/src/lib/assets/images/case.png"
+						src="/src/lib/assets/images/caseold.png"
 						class="mx-auto w-full transform transition duration-700 ease-in-out hover:scale-105 md:w-4/5"
 					/>
 				</a>
