@@ -62,7 +62,6 @@
 		{#if !product}
 			<div class="flex w-full items-center justify-between">
 				<h3 class=" text-lg">No product found! 🫢</h3>
-
 				<a href="/products"><XCircle /></a>
 			</div>
 		{:else}
@@ -71,7 +70,7 @@
 					Select your options for the <span class="font-bold">{product.name}</span>
 				</h3>
 
-				<a href="/products"><XCircle /></a>
+				<a href="/products" class="ml-2"><XCircle /></a>
 			</div>
 
 			<div class="flex flex-col">
