@@ -42,9 +42,6 @@ export const load = async ({ params }) => {
 
 export const actions = {
 	default: async ({ params }) => {
-		if (params.pass !== env.PASS) {
-			throw error(403, 'Woops your using the wrong passcode url');
-		}
 		await prisma.order.update({ where: { id: parseInt(params.id) }, data: { approved: true } });
 
 		const order = await prisma.order.findUnique({

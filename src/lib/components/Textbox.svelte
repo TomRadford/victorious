@@ -6,7 +6,7 @@
 	export let value: string;
 	export let name: string;
 
-	export let type: 'text' | 'email' | 'number';
+	export let type: 'text' | 'email' | 'number' | 'password';
 	export let error = '';
 </script>
 
@@ -32,6 +32,16 @@
 			<input
 				id="text"
 				type="number"
+				class="input input-bordered input-primary w-full"
+				placeholder={description}
+				bind:value
+				{name}
+				{...$$restProps}
+			/>
+		{:else if type === 'password'}
+			<input
+				id="text"
+				type="password"
 				class="input input-bordered input-primary w-full"
 				placeholder={description}
 				bind:value
