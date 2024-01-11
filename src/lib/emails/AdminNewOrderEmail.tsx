@@ -102,7 +102,7 @@ export const CustomerOrderConfirmedEmail = ({
 							You have a new order! Please confirm it or reach out to the client. You can modify
 							line items in the DB if needed before visiting the confirm page below (should the
 							client want to change something). The link below will allow you to review the order
-							before clicking approve. DO NOT SHARE THIS URL (it has the passcode in the url)
+							before clicking approve. You'll need to enter your admin pass to see this page.
 						</Text>
 					</Section>
 					<Section style={titleTable}>
