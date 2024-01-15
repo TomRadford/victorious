@@ -1,6 +1,6 @@
 # Victorious Audio Website
 
-Young website for @peakza's website - selling custom in-ear monitors (IEM's)
+Young website for @[peakza](https://github.com/PeaksZA)'s website - selling custom in-ear monitors (IEM's)
 
 Built with SvelteKit using Typescript. 
 I used Superforms with Zod for form validation (so lovely!).
