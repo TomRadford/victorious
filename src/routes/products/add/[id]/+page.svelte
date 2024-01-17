@@ -81,7 +81,7 @@
 					canAdd
 				/>
 				<Combobox
-					bind:optionValue={newOrder.baseColour}
+					bind:optionValue={newOrder.faceplateColour}
 					options={coloursList}
 					description="Faceplate Colour"
 					canAdd
