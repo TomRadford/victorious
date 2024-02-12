@@ -56,6 +56,7 @@ export const actions = {
 			const customerEmailOptions: MailDataRequired = {
 				to: order.customerEmail,
 				from: { name: 'Victorious Audio', email: 'mail@victoriousaudio.co.za' },
+				replyTo: 'ben@victoriousaudio.co.za',
 				cc: 'ben@victoriousaudio.co.za',
 				subject: `Your Order (VA${order.id.toString().padStart(4, '0')}) has been confirmed`,
 				html: emailHtml
