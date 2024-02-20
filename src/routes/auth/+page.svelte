@@ -20,7 +20,7 @@
 </script>
 
 <svelte:head>
-	<title>Victorious Audio | Checkout</title>
+	<title>Victorious Audio | Auth</title>
 </svelte:head>
 <div class="container mx-auto flex flex-col flex-wrap items-center">
 	<div class="flex w-full flex-col gap-8 lg:flex-row">
