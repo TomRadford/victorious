@@ -1,14 +1,16 @@
+<script>
+
+
+</script>
 <svelte:head>
-	<meta
-		name="description"
-		content="Victorious Audio is a custom mould in-ear monitor company based in South Africa. Experience superior sound and comfort and an extremely affordable price."
-	/>
-	<meta
-		name="google-site-verification"
-		content="+nxGUDJ4QpAZ5l9Bsjdi102tLVC21AIh5d1Nl23908vVuFHs34="
-	/>
-	<title>Victorious Audio - Custom Mould In-ear monitors South Africa</title>
+	<title>Victorious Audio | Custom IEMS</title>
+	<!-- Victorious Audio is a custom mould in-ear monitor company based in South Africa. Experience superior sound and comfort and an extremely affordable price. -->
+	<meta charset="utf-8">
+	<meta name="description" content="Victorious Audio is a custom mould in-ear monitor company based in South Africa. Experience superior sound and comfort and an extremely affordable price.">
+	<meta name="google-site-verification" content="+nxGUDJ4QpAZ5l9Bsjdi102tLVC21AIh5d1Nl23908vVuFHs34=">
+
 </svelte:head>
+
 
 <!--Main-->
 <div class="">
@@ -27,6 +29,7 @@
 			<div class="flex items-center justify-center gap-4 pt-4">
 				<a href="/products" class="btn btn-outline btn-primary"> Products </a>
 				<a href="/how-to-order" class="btn btn-outline btn-primary"> How to order </a>
+				<a href="/terms-and-conditions" class="btn btn-outline btn-primary"> Terms and Conditions </a>
 			</div>
 		</div>
 
