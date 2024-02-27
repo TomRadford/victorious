@@ -1,20 +1,14 @@
-<script>
-
-
-</script>
 <svelte:head>
-	<title>Victorious Audio | Custom IEMS</title>
-	<!-- Victorious Audio is a custom mould in-ear monitor company based in South Africa. Experience superior sound and comfort and an extremely affordable price. -->
-	<!DOCTYPE html>
-
-	<meta charset="utf-8">
-	<meta name="description" content="Victorious Audio is a custom mould in-ear monitor company based in South Africa. Experience superior sound and comfort and an extremely affordable price.">
-	<meta name="google-site-verification" content="+nxGUDJ4QpAZ5l9Bsjdi102tLVC21AIh5d1Nl23908vVuFHs34=">
+	<meta
+		name="description"
+		content="Victorious Audio is a custom mould in-ear monitor company based in South Africa. Experience superior sound and comfort and an extremely affordable price."
+	/>
+	<meta
+		name="google-site-verification"
+		content="+nxGUDJ4QpAZ5l9Bsjdi102tLVC21AIh5d1Nl23908vVuFHs34="
+	/>
 	<title>Victorious Audio - Custom Mould In-ear monitors South Africa</title>
-	<meta name="robots" content="noindex,nofollow">
-
 </svelte:head>
-
 
 <!--Main-->
 <div class="">
