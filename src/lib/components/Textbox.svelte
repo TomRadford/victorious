@@ -5,7 +5,7 @@
 	export let description = '';
 	export let value: string;
 	export let name: string;
-
+	export let placeholder = description;
 	export let type: 'text' | 'email' | 'number' | 'password';
 	export let error = '';
 </script>
@@ -23,7 +23,7 @@
 				id="text"
 				type="email"
 				class="input input-bordered input-primary w-full"
-				placeholder={description}
+				{placeholder}
 				bind:value
 				{name}
 				{...$$restProps}
@@ -33,7 +33,7 @@
 				id="text"
 				type="number"
 				class="input input-bordered input-primary w-full"
-				placeholder={description}
+				{placeholder}
 				bind:value
 				{name}
 				{...$$restProps}
@@ -43,7 +43,7 @@
 				id="text"
 				type="password"
 				class="input input-bordered input-primary w-full"
-				placeholder={description}
+				{placeholder}
 				bind:value
 				{name}
 				{...$$restProps}
@@ -53,7 +53,7 @@
 				id="text"
 				type="text"
 				class="input input-bordered input-primary w-full"
-				placeholder={description}
+				{placeholder}
 				bind:value
 				{name}
 				{...$$restProps}

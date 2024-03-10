@@ -25,7 +25,8 @@ export const CustomerOrderConfirmedEmail = ({
 		id: 3,
 		createdAt: new Date(),
 		updatedAt: new Date(),
-		approved: true
+		approved: true,
+		note: 'test note'
 	},
 	lines = [
 		{
@@ -202,6 +203,15 @@ export const CustomerOrderConfirmedEmail = ({
 						</Column>
 					</Section>
 					<Hr style={productPriceLine} />
+
+					{order.note ? (
+						<>
+							<Section style={titleTable}>
+								<Text style={titleTableTitle}>Note:</Text>
+							</Section>
+							<span style={noteText}>{order.note}</span>
+						</>
+					) : null}
 
 					<Section style={titleTable}>
 						<Text style={titleTableTitle}>EFT Details</Text>
@@ -542,4 +552,12 @@ const stepsText = {
 	fontSize: '14px',
 	fontWeight: '400',
 	textDecoration: 'none'
+};
+
+const noteText = {
+	textDecoration: 'none',
+	paddingLeft: '10px',
+	fontSize: '14px',
+	fontWeight: '400',
+	margin: '10px'
 };

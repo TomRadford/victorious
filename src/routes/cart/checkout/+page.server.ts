@@ -31,7 +31,8 @@ const orderSchema = z.object({
 	city: z.string(),
 	province: z.string(),
 	zipcode: z.string().min(4),
-	order: lineSchema.array()
+	order: lineSchema.array(),
+	note: z.string().default('')
 });
 
 if (env.SENDGRID_API_KEY) {
@@ -57,31 +58,38 @@ export const actions = {
 		}
 
 		// Create DB Entries
-		const existingCustomer = await prisma.customer.findUnique({
+		let existingCustomer = await prisma.customer.findUnique({
 			where: { email: form.data.email }
 		});
 		let newCustomer: Customer | undefined;
+		const customerDetails = {
+			email: form.data.email,
+			phone: form.data.phone,
+			name: form.data.name,
+			address1: form.data.address1,
+			address2: form.data.address2,
+			city: form.data.city,
+			province: form.data.province,
+			zipcode: form.data.zipcode
+		};
 		if (!existingCustomer) {
+			// make new customer
 			newCustomer = await prisma.customer.create({
-				data: {
-					email: form.data.email,
-					phone: form.data.phone,
-					name: form.data.name,
-					address1: form.data.address1,
-					address2: form.data.address2,
-					city: form.data.city,
-					province: form.data.province,
-					zipcode: form.data.zipcode
-				}
+				data: customerDetails
 			});
 		} else {
+			// update existing customer details
+			existingCustomer = await prisma.customer.update({
+				where: { email: existingCustomer.email },
+				data: customerDetails
+			});
 			newCustomer = undefined;
 		}
 
 		const customer = existingCustomer ?? newCustomer;
 
 		const order = await prisma.order.create({
-			data: { customerEmail: form.data.email }
+			data: { customerEmail: form.data.email, note: form.data.note }
 		});
 
 		const lines = await prisma.$transaction(

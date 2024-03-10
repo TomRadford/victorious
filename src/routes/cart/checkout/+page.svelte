@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Instructions from '$lib/components/Instructions.svelte';
+	import TextArea from '$lib/components/TextArea.svelte';
 	import Textbox from '$lib/components/Textbox.svelte';
 	import { cartLineItemsStore, cartStore } from '$lib/stores/cart';
 	import { formatCurrency } from '$lib/utils/formatCurrency';
@@ -158,6 +159,16 @@
 							bind:value={$form.zipcode}
 							{...$constraints.zipcode}
 							error={$errors.zipcode?.join(' ')}
+						/>
+						<TextArea
+							description="Order Notes"
+							type="text"
+							name="zipcode"
+							aria-invalid={$errors.note ? 'true' : undefined}
+							bind:value={$form.note}
+							{...$constraints.note}
+							error={$errors.note?.join(' ')}
+							placeholder="Any notes for your order"
 						/>
 
 						<div class="flex w-full justify-center pt-4">
