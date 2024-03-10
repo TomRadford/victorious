@@ -94,8 +94,9 @@
 							action="?/details"
 							use:svelteEnhance={(f) => {
 								return async ({ update, result }) => {
+									let tId;
 									try {
-										let tId = toast.loading('Loading');
+										tId = toast.loading('Loading');
 										await update({ reset: false });
 
 										if (result.type === 'success') {
@@ -108,15 +109,11 @@
 											$form.province = result.data.province;
 											$form.zipcode = result.data.zipcode;
 										}
-										toast.dismiss(tId);
-										toast.success('Restored user details');
-									} catch (e) {
-										toast.dismiss(tId);
-										toast.error('User does not exist');
-									}
 
-									// console.log(data);
-									// console.log(f.formData.get('name'));
+										toast.success('Restored user details', { id: tId });
+									} catch (e) {
+										toast.error('User does not exist', { id: tId });
+									}
 								};
 							}}
 							class="mb-4 flex w-full flex-col gap-2 rounded bg-slate-700 p-4"
