@@ -49,12 +49,12 @@ model Order {
   shipping      Shipping?  @relation(fields: [shippingId], references: [id])
   discount      Discount? @relation(fields: [discountCode], references: [code])
   discountCode  String?
-  discountAmount Float?
+  discountAmount Decimal?
 }
 
 model Discount {
   code    String  @id
-  amount  Float   @default(0)
+  amount  Decimal   @default(0)
   // union type of percentage or number
   type    String  @default("percentage")
   enabled Boolean @default(true)
