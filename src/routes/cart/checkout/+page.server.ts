@@ -32,7 +32,7 @@ const orderSchema = z.object({
 	province: z.string(),
 	zipcode: z.string().min(4),
 	order: lineSchema.array(),
-	note: z.string().default('')
+	note: z.string().default('').optional()
 });
 
 if (env.SENDGRID_API_KEY) {
@@ -131,6 +131,7 @@ export const actions = {
 				})
 			)
 		);
+
 		if (customer && lines && order) {
 			const customerEmailHtml = render(CustomerOrderSentEmail({ customer, lines, order }));
 

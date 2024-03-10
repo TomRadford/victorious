@@ -3,7 +3,6 @@
 	import CartTable from '$lib/components/CartTable.svelte';
 
 	export let data;
-	let result;
 	let loading = false;
 </script>
 
@@ -20,26 +19,52 @@
 		</div>
 	</div>
 	<CartTable cart={data.cart} hideCheckout />
-	{#if !data.approved}
-		<form
-			method="POST"
-			class="flex w-full flex-col items-center gap-24"
-			use:enhance={() => {
-				loading = true;
-				return async ({ update, result }) => {
-					console.log(result);
-					await update({ reset: false });
-					loading = false;
-				};
-			}}
-		>
-			{#if loading}
-				<span class="loading loading-spinner loading-md"></span>
-			{:else}
-				<button type="submit" class="btn btn-primary">Approve</button>
-			{/if}
-		</form>
-	{:else}
+	<div class="flex gap-4">
+		{#if !data.approved && !data.cancelled}
+			<form
+				method="POST"
+				action="?/approve"
+				class="flex w-full flex-col items-center gap-24"
+				use:enhance={() => {
+					loading = true;
+					return async ({ update, result }) => {
+						console.log(result);
+						await update({ reset: false });
+						loading = false;
+					};
+				}}
+			>
+				{#if !loading}
+					<button type="submit" class="btn btn-primary">Approve</button>
+				{/if}
+			</form>
+		{/if}
+		{#if !data.cancelled && !data.approved}
+			<form
+				method="POST"
+				action="?/cancel"
+				class="flex w-full flex-col items-center gap-24"
+				use:enhance={() => {
+					loading = true;
+					return async ({ update, result }) => {
+						console.log(result);
+						await update({ reset: false });
+						loading = false;
+					};
+				}}
+			>
+				{#if !loading}
+					<button type="submit" class="btn btn-error">Cancel</button>
+				{/if}
+			</form>
+		{/if}
+	</div>
+	{#if loading}
+		<span class="loading loading-spinner loading-md"></span>
+	{/if}
+	{#if data.approved}
 		APPROVED :)
+	{:else if data.cancelled}
+		CANCELLED :(
 	{/if}
 </div>

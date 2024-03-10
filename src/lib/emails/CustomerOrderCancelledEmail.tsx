@@ -76,7 +76,7 @@ export const CustomerOrderConfirmedEmail = ({
 	return (
 		<Html>
 			<Head />
-			<Preview>Victorious Audio Invoice</Preview>
+			<Preview>Victorious Audio Order Cancelled</Preview>
 
 			<Body style={main}>
 				<Container style={container}>
@@ -91,14 +91,13 @@ export const CustomerOrderConfirmedEmail = ({
 						</Column>
 
 						<Column align="right" style={tableCell}>
-							<Text style={heading}>Invoice</Text>
+							<Text style={heading}>Order Cancelled</Text>
 						</Column>
 					</Section>
 					<Section>
 						<Text style={stepsText}>
 							Dear {customer.name},<br />
-							Thank you for choosing Victorious Audio for your recent purchase. We are pleased to
-							confirm your order. Please find <strong>EFT details</strong> to make payment below.
+							Please note that your order ({orderRef}) has been cancelled.
 						</Text>
 					</Section>
 					<Section style={titleTable}>
@@ -124,7 +123,7 @@ export const CustomerOrderConfirmedEmail = ({
 
 								<Row>
 									<Column style={informationTableColumn}>
-										<Text style={informationTableLabel}>INVOICE DATE</Text>
+										<Text style={informationTableLabel}>ORDER DATE</Text>
 										<Text style={informationTableValue}>
 											{order.createdAt.toLocaleDateString('en-ZA')}
 										</Text>
@@ -229,105 +228,14 @@ export const CustomerOrderConfirmedEmail = ({
 						</>
 					) : null}
 
-					<Section style={titleTable}>
-						<Text style={titleTableTitle}>EFT Details</Text>
-					</Section>
-					<Section style={informationTable}>
-						<Row style={informationTableRow}>
-							<Column colSpan={2}>
-								<Row>
-									<Column style={informationTableColumn}>
-										<Text style={informationTableLabel}>Account Holder</Text>
-										<Text style={informationTableValue}>Benjamin Radford</Text>
-									</Column>
-								</Row>
-
-								<Row>
-									<Column style={informationTableColumn}>
-										<Text style={informationTableLabel}>Bank Name</Text>
-										<Text style={informationTableValue}>TymeBank</Text>
-									</Column>
-								</Row>
-
-								<Row>
-									<Column style={informationTableColumn}>
-										<Text style={informationTableLabel}>Account Type</Text>
-										<Text style={informationTableValue}>Savings</Text>
-									</Column>
-								</Row>
-								<Row>
-									<Column style={informationTableColumn}>
-										<Text style={informationTableLabel}>Branch Code</Text>
-										<Text style={informationTableValue}>678910</Text>
-									</Column>
-								</Row>
-							</Column>
-							<Column style={informationTableColumn} colSpan={2}>
-								<Row>
-									<Column style={informationTableColumn}>
-										<Text style={informationTableLabel}>Account Number</Text>
-										<Text style={informationTableValue}>51082354245</Text>
-									</Column>
-								</Row>
-								<Row>
-									<Column style={informationTableColumn}>
-										<Text style={informationTableLabel}>Reference Number</Text>
-										<Text style={informationTableValue}>{orderRef}</Text>
-									</Column>
-								</Row>
-								<Row>
-									<Column style={informationTableColumn}>
-										<Text style={informationTableLabel}>Payment Amount</Text>
-										<Text style={informationTableValue}>{formatCurrency(total)}</Text>
-									</Column>
-								</Row>
-								<Row>
-									<Column style={informationTableColumn}>
-										<Text style={informationTableLabel}>Proof of Payment</Text>
-										<Text style={informationTableValue}>ben@victoriousaudio.co.za</Text>
-									</Column>
-								</Row>
-							</Column>
-						</Row>
-					</Section>
-					<Section style={{ width: '100%' }}>
-						<Text style={{ textAlign: 'center' }}>
-							LEAD TIME ON RECEIVING OF PAYMENT TO DELIVERY IS 21 DAYS.
-						</Text>
-					</Section>
 					<Section>
-						<Column align="center" style={ctaTitle}>
-							<Text style={ctaText}>Next Steps</Text>
-						</Column>
-					</Section>
-					<Section>
+						<br />
 						<span style={stepsText}>
-							If you have any questions or need further assistance, please don't hesitate to reach
-							out to our customer service at{' '}
+							If you have any questions or need further assistance with this cancellation, please
+							don't hesitate to reach out to our customer service at{' '}
 							<Link href="mailto:ben@victoriousaudio.co.za ">ben@victoriousaudio.co.za</Link>
-							<br />
-							<br /> Your satisfaction is our priority, and we appreciate your business. For
-							information on what to do next, please visit:{' '}
-							<Link href={`${baseUrl}/how-to-order`}>victoriousaudio.co.za/how-to-order</Link>
 						</span>{' '}
 						<br />
-						<Button
-							href={`${baseUrl}/how-to-order`}
-							style={{
-								backgroundColor: '#54A2D3',
-								borderRadius: '3px',
-								color: '#fff',
-								fontSize: '18px',
-								textDecoration: 'none',
-								textAlign: 'center' as const,
-								display: 'block',
-								width: '100%',
-								marginTop: '40px',
-								padding: '10px 10px 10px 10px'
-							}}
-						>
-							Take the next steps
-						</Button>
 					</Section>
 					<Section>
 						<Column align="center" style={footerIcon}>

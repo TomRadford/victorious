@@ -26,7 +26,8 @@ export const CustomerOrderConfirmedEmail = ({
 		createdAt: new Date(),
 		updatedAt: new Date(),
 		approved: true,
-		note: 'test note'
+		note: 'test note',
+		discountAmount: 22
 	},
 	lines = [
 		{
@@ -74,7 +75,7 @@ export const CustomerOrderConfirmedEmail = ({
 	approveUrl: string;
 }) => {
 	const orderRef = `VA${order.id.toString().padStart(4, '0')}`;
-	const total = lines.reduce((acc, c) => acc + c.price, 0);
+	const total = lines.reduce((acc, c) => acc + c.price, 0) - (order.discountAmount ?? 0);
 	return (
 		<Html>
 			<Head />
@@ -197,7 +198,24 @@ export const CustomerOrderConfirmedEmail = ({
 							))}
 						</Column>
 					</Section>
+
+					{order.discountAmount ? (
+						<>
+							<Hr style={productPriceLine} />
+							<Section align="right">
+								<Column style={tableCell} align="right">
+									<Text style={productPriceTotal}>DISCOUNT</Text>
+								</Column>
+								<Column style={productPriceVerticalLine}></Column>
+								<Column style={productPriceLargeWrapper}>
+									<Text style={productPriceLarge}>{formatCurrency(order.discountAmount)}</Text>
+								</Column>
+							</Section>
+						</>
+					) : null}
+
 					<Hr style={productPriceLine} />
+
 					<Section align="right">
 						<Column style={tableCell} align="right">
 							<Text style={productPriceTotal}>TOTAL</Text>
