@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { formatCurrency } from '$lib/utils/formatCurrency.js';
-	import { EditIcon } from 'lucide-svelte';
+	import { EditIcon, EyeIcon } from 'lucide-svelte';
 
 	export let data;
 </script>
@@ -25,18 +25,23 @@
                 </th> -->
 						<th>Id</th>
 						<th>Customer</th>
-						<th>Approved</th>
+						<th>Status</th>
+
 						<th>Items</th>
 						<th>Total</th>
 					</tr>
 				</thead>
 				<tbody>
 					{#each data.orders as order}
-						<tr class="">
+						<tr
+							class={`${order.approved ? 'text-green-500' : ''} ${
+								order.cancelled ? 'text-red-500' : ''
+							}`}
+						>
 							<td class=" font-bold"> <a href="/admin/orders/{order.id}">{order.id}</a></td>
 
-							<td>{order.customer.name}</td>
-							<td>{order.approved ? 'Yes' : 'No'}</td>
+							<td>{order.customer.name} ({order.customer.email})</td>
+							<td>{order.approved ? 'APPROVED' : ''}{order.cancelled ? 'CANCELLED' : ''}</td>
 							<td>
 								{order.lines.length}
 								<!-- <td
@@ -53,7 +58,7 @@
 									order.lines.reduce((acc, c) => acc + c.price, 0) - (order.discountAmount ?? 0)
 								)}</td
 							>
-							<td> <a href="/admin/orders/{order.id}" class="btn"><EditIcon size="20" /></a></td>
+							<td> <a href="/admin/orders/{order.id}" class=""><EyeIcon size="20" /></a></td>
 						</tr>
 					{/each}
 				</tbody>

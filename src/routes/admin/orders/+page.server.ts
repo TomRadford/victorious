@@ -5,6 +5,7 @@ export const load = async () => {
 		select: {
 			id: true,
 			approved: true,
+			cancelled: true,
 			customer: true,
 			lines: true,
 			discountAmount: true
