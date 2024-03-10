@@ -6,6 +6,7 @@ import { error } from '@sveltejs/kit';
 import sendgrid, { type MailDataRequired } from '@sendgrid/mail';
 import { render } from '@react-email/render';
 import CustomerOrderCancelledEmail from '$lib/emails/CustomerOrderCancelledEmail.js';
+import CustomerOrderConfirmedEmail from '$lib/emails/CustomerOrderConfirmedEmail.js';
 
 if (env.SENDGRID_API_KEY) {
 	sendgrid.setApiKey(env.SENDGRID_API_KEY);
