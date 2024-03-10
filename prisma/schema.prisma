@@ -55,7 +55,7 @@ model Order {
 model Discount {
   code    String  @id
   amount  Int
-  // union type of percentage or fixed
+  // union type of percentage or number
   type    String  @default("percentage")
   enabled Boolean @default(true)
   Orders  Order[]
