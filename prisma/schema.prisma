@@ -46,7 +46,7 @@ model Order {
   note          String    @default("")
   shippingId    String?
   shipping      Shipping?  @relation(fields: [shippingId], references: [id])
-  Discount      Discount? @relation(fields: [discountCode], references: [code])
+  discount      Discount? @relation(fields: [discountCode], references: [code])
   discountCode  String?
 }
 
