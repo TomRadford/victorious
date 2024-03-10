@@ -48,6 +48,7 @@ model Order {
   shipping      Shipping?  @relation(fields: [shippingId], references: [id])
   discount      Discount? @relation(fields: [discountCode], references: [code])
   discountCode  String?
+  discountAmount Int?
 }
 
 model Discount {
