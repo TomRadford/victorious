@@ -161,7 +161,7 @@ export const CustomerOrderConfirmedEmail = ({
 					<Section>
 						<Column style={{}} colSpan={1}>
 							{lines.map((line) => (
-								<Row style={{ margin: '0px 0px 20px 0px' }}>
+								<Row style={{ margin: '0px 0px 20px 0px' }} key={line.productId}>
 									<Column style={{ width: '64px' }}>
 										<Img
 											src={`${baseUrl}/emails/${line.productId}.png`}
