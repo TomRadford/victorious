@@ -23,6 +23,7 @@
 	});
 
 	$: {
+		$form; // make sure order data is ALWAYS injected into the form
 		$form.order = $cartLineItemsStore.map((line) => ({
 			productName: line.product.name,
 			productId: line.product.id,
