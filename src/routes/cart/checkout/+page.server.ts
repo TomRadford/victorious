@@ -108,7 +108,7 @@ export const actions = {
 			const customerEmailOptions: MailDataRequired = {
 				to: form.data.email,
 				from: { name: 'Victorious Audio', email: 'mail@victoriousaudio.co.za' },
-				replyTo: 'ben@victoriousaudio.co.za',
+				replyTo: env.ADMIN_EMAIL,
 				subject: `Your Order (VA${order.id.toString().padStart(4, '0')})`,
 				html: customerEmailHtml
 			};
@@ -119,7 +119,7 @@ export const actions = {
 			const adminEmailHtml = render(AdminNewOrderEmail({ customer, lines, order, approveUrl }));
 
 			const adminEmailOptions: MailDataRequired = {
-				to: 'ben@victoriousaudio.co.za',
+				to: env.ADMIN_EMAIL,
 				from: { name: 'Victorious Audio', email: 'mail@victoriousaudio.co.za' },
 				subject: `NEW ORDER (VA${order.id.toString().padStart(4, '0')})`,
 				html: adminEmailHtml
