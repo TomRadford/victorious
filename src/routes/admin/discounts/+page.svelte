@@ -7,6 +7,7 @@
 
 	export let data;
 	let adding = false;
+	let typeValue = 'percentage';
 </script>
 
 <div class="flex w-full flex-row items-center justify-center overflow-y-hidden lg:items-start">
@@ -82,9 +83,10 @@
 			>
 				<Textbox type="text" value="" label="Code" description="Code" name="code" />
 				<Textbox type="number" value="" label="Amount" description="Amount" name="amount" />
+				<input type="text" hidden name="type" value={typeValue} />
 				<Combobox
 					description="Type"
-					optionValue="percentage"
+					bind:optionValue={typeValue}
 					options={[
 						{ value: 'percentage', description: '% discount' },
 						{ value: 'number', description: 'number discount' }

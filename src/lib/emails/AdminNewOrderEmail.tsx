@@ -27,7 +27,7 @@ export const CustomerOrderConfirmedEmail = ({
 		updatedAt: new Date(),
 		approved: true,
 		note: 'test note',
-		discountAmount: 22
+		discountAmount: 22.03
 	},
 	lines = [
 		{

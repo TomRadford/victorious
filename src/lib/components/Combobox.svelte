@@ -6,6 +6,7 @@
 	export let description = '';
 	export let optionValue: string;
 	export let canAdd = false;
+	export let name = '';
 
 	$: {
 		if (!$selected) {
@@ -37,6 +38,7 @@
 	} = createCombobox<Option>({
 		forceVisible: true,
 		portal: undefined,
+		name,
 		preventScroll: true,
 		positioning: { placement: 'bottom', sameWidth: true, fitViewport: true, flip: false }
 	});

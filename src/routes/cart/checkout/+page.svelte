@@ -9,6 +9,7 @@
 	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
 	import { enhance as svelteEnhance } from '$app/forms';
 	import { toast } from 'svelte-sonner';
+	import { discountStore } from '$lib/stores/discount';
 
 	export let data: PageData;
 
@@ -18,12 +19,14 @@
 		onResult: ({ result }) => {
 			if (result.type === 'success') {
 				$cartStore = [];
+				$discountStore = undefined;
 			}
 		}
 	});
 
 	$: {
 		$form; // make sure order data is ALWAYS injected into the form
+		$form.discountCode = $discountStore?.code;
 		$form.order = $cartLineItemsStore.map((line) => ({
 			productName: line.product.name,
 			productId: line.product.id,
@@ -36,6 +39,14 @@
 			price: line.product.startingPrice
 		}));
 	}
+
+	$: totalWithoutDiscount = $cartStore.reduce((acc, c) => acc + c.product.startingPrice, 0);
+
+	$: discountAmount = $discountStore?.amount
+		? $discountStore?.type === 'percentage'
+			? totalWithoutDiscount * ($discountStore.amount / 100)
+			: $discountStore?.amount
+		: 0;
 </script>
 
 <svelte:head>
@@ -83,7 +94,8 @@
 							for
 							<span class="font-bold"
 								>{formatCurrency(
-									$cartLineItemsStore.reduce((acc, c) => acc + c.product.startingPrice, 0)
+									$cartLineItemsStore.reduce((acc, c) => acc + c.product.startingPrice, 0) -
+										discountAmount
 								)}</span
 							>
 						</p>

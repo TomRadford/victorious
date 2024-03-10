@@ -15,7 +15,7 @@ if (env.SENDGRID_API_KEY) {
 export const load = async ({ params }) => {
 	const order = await prisma.order.findUnique({
 		where: { id: parseInt(params.id) },
-		include: { lines: true, customer: true }
+		include: { lines: true, customer: true, discount: true }
 	});
 
 	if (!order) {
@@ -43,7 +43,8 @@ export const load = async ({ params }) => {
 		approved: order.approved,
 		cancelled: order.cancelled,
 		customer: order.customer,
-		orderId: order.id
+		orderId: order.id,
+		discount: order.discount
 	};
 };
 

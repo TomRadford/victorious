@@ -1,12 +1,27 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
+	import Textbox from '$lib/components/Textbox.svelte';
+	import { discountStore } from '$lib/stores/discount';
 	import type { CartLine } from '$lib/types/cart';
 
 	import { formatCurrency } from '$lib/utils/formatCurrency';
+	import type { Discount } from '@prisma/client';
 	import { Trash } from 'lucide-svelte';
 
 	export let handleDelete: ((line: CartLine) => void) | undefined = undefined;
 	export let cart: CartLine[];
 	export let hideCheckout = false;
+	export let discount: Discount | null = null;
+
+	$: totalWithoutDiscount = cart.reduce((acc, c) => acc + c.product.startingPrice, 0);
+
+	$: discountInternal = discount ?? $discountStore;
+
+	$: discountAmount = discountInternal?.amount
+		? discountInternal?.type === 'percentage'
+			? totalWithoutDiscount * (discountInternal.amount / 100)
+			: discountInternal?.amount
+		: 0;
 </script>
 
 <div class="w-full overflow-x-auto">
@@ -14,11 +29,6 @@
 		<!-- head -->
 		<thead>
 			<tr>
-				<!-- <th>
-                <label>
-                    <input type="checkbox" class="checkbox" />
-                </label>
-            </th> -->
 				<th>Item</th>
 				<th>Base Colour</th>
 				<th>Faceplate Colour</th>
@@ -82,14 +92,42 @@
 		</tbody>
 	</table>
 </div>
-<div class="mt-5 flex w-full flex-row justify-between">
+<div class="mt-5 flex w-full flex-col justify-between gap-4 md:flex-row md:items-end">
 	<div>
 		<div class="">Total:</div>
 		<p class="text-2xl font-bold">
-			{formatCurrency(cart.reduce((acc, c) => acc + c.product.startingPrice, 0))}
+			{formatCurrency(totalWithoutDiscount - discountAmount)}
 		</p>
 	</div>
+	{#if discountAmount}
+		<div>
+			<div class="">Discount:</div>
+			<p class="text-2xl font-bold">
+				{formatCurrency(discountAmount)}
+			</p>
+		</div>
+	{/if}
 	{#if !hideCheckout}
+		<form
+			method="POST"
+			action="?/applyDiscount"
+			use:enhance={() => {
+				return async ({ update, result }) => {
+					await update({ reset: false });
+				};
+			}}
+			class="flex w-full flex-row items-center justify-center gap-2 md:max-w-80"
+		>
+			<Textbox
+				type="text"
+				name="discountCode"
+				description="Discount"
+				placeholder="Add a discount code"
+				value=""
+			/>
+			<button type="submit" class="btn btn-primary self-end">Apply</button>
+		</form>
+
 		<a href="/cart/checkout" class="btn btn-primary">Checkout</a>
 	{/if}
 </div>

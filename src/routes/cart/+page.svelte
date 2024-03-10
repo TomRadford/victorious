@@ -1,7 +1,23 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	import CartTable from '$lib/components/CartTable.svelte';
+	import Textbox from '$lib/components/Textbox.svelte';
 	import { cartLineItemsStore, cartStore } from '$lib/stores/cart';
+	import { discountStore } from '$lib/stores/discount';
 	import type { CartLine } from '$lib/types/cart';
+	import { toast } from 'svelte-sonner';
+
+	export let form: FormData;
+
+	$: {
+		if (form?.discount && !form?.fail) {
+			toast.success(`Discount code ${form?.discount?.code} applied`);
+			$discountStore = form?.discount;
+		} else if (form?.fail) {
+			toast.error("Discount code doesn't exist");
+			$discountStore = undefined;
+		}
+	}
 
 	const handleDelete = (line: CartLine) => {
 		if (typeof line.orderIndex === 'number' && typeof line.productIndex === 'number') {

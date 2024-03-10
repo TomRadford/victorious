@@ -11,7 +11,7 @@ export const actions = {
 		const code = formData.get('code')?.toString();
 
 		if (code) {
-			const c = await prisma.discount.create({
+			await prisma.discount.create({
 				data: {
 					code,
 					amount: parseInt(formData.get('amount')?.toString() || '0'),
@@ -28,7 +28,6 @@ export const actions = {
 
 		if (code) {
 			const discount = await prisma.discount.findUnique({ where: { code } });
-			console.log(discount);
 			await prisma.discount.update({
 				where: { code },
 				data: { enabled: !discount?.enabled }

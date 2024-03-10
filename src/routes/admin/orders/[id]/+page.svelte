@@ -18,7 +18,7 @@
 			({data.customer.email})
 		</div>
 	</div>
-	<CartTable cart={data.cart} hideCheckout />
+	<CartTable cart={data.cart} hideCheckout discount={data.discount} />
 	<div class="flex gap-4">
 		{#if !data.approved && !data.cancelled}
 			<form
@@ -28,7 +28,6 @@
 				use:enhance={() => {
 					loading = true;
 					return async ({ update, result }) => {
-						console.log(result);
 						await update({ reset: false });
 						loading = false;
 					};
@@ -47,7 +46,6 @@
 				use:enhance={() => {
 					loading = true;
 					return async ({ update, result }) => {
-						console.log(result);
 						await update({ reset: false });
 						loading = false;
 					};

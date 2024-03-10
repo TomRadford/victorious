@@ -32,7 +32,8 @@ const orderSchema = z.object({
 	province: z.string(),
 	zipcode: z.string().min(4),
 	order: lineSchema.array(),
-	note: z.string().default('').optional()
+	note: z.string().default('').optional(),
+	discountCode: z.string().default('').optional()
 });
 
 if (env.SENDGRID_API_KEY) {
@@ -60,10 +61,10 @@ export const actions = {
 		}
 		const formData = await request.formData();
 
-		const email = formData.get('email');
+		const email = formData.get('email')?.toString();
 
 		if (email) {
-			const user = await prisma.customer.findUnique({ where: { email: email.toString() } });
+			const user = await prisma.customer.findUnique({ where: { email: email } });
 			return user;
 		} else {
 			return;
@@ -77,6 +78,23 @@ export const actions = {
 			// Again, return { form } and things will just work.
 			return message(form, { form });
 		}
+
+		// Validate discount code
+		const discountCode = form.data.discountCode;
+
+		const discount = await prisma.discount.findUnique({
+			where: { code: discountCode, enabled: true }
+		});
+
+		if (discountCode && !discount) {
+			return message(form, 'Invalid discount code');
+		}
+
+		const totalWithoutDiscount = form.data.order.reduce((acc, line) => acc + line.price, 0);
+		const discountAmount =
+			(discount?.type === 'percentage'
+				? totalWithoutDiscount * (discount.amount / 100)
+				: discount?.amount) ?? 0;
 
 		// Create DB Entries
 		let existingCustomer = await prisma.customer.findUnique({
@@ -110,7 +128,12 @@ export const actions = {
 		const customer = existingCustomer ?? newCustomer;
 
 		const order = await prisma.order.create({
-			data: { customerEmail: form.data.email, note: form.data.note }
+			data: {
+				customerEmail: form.data.email,
+				note: form.data.note,
+				discountAmount,
+				discountCode: discount?.code
+			}
 		});
 
 		const lines = await prisma.$transaction(
