@@ -43,5 +43,5 @@ model Order {
   approved      Boolean  @default(false)
   lines         Line[]
   customer      Customer @relation(fields: [customerEmail], references: [email])
-  note          String
+  note          String   @default("")
 }
