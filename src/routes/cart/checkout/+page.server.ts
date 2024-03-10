@@ -39,16 +39,37 @@ if (env.SENDGRID_API_KEY) {
 	sendgrid.setApiKey(env.SENDGRID_API_KEY);
 }
 
-export const load = async () => {
+export const load = async ({ cookies }) => {
 	// Server API:
 	const form = await superValidate(orderSchema);
 
+	const userToken = cookies.get('pass');
+	const isAdmin = userToken === env.PASS;
+
 	// Unless you throw, always return { form } in load and form actions.
-	return { form };
+	return { form, isAdmin };
 };
 
 export const actions = {
-	default: async ({ request }) => {
+	details: async ({ cookies, request }) => {
+		const userToken = cookies.get('pass');
+		const isAdmin = userToken === env.PASS;
+
+		if (!isAdmin) {
+			throw new Error('Not admin');
+		}
+		const formData = await request.formData();
+
+		const email = formData.get('email');
+
+		if (email) {
+			const user = await prisma.customer.findUnique({ where: { email: email.toString() } });
+			return user;
+		} else {
+			return;
+		}
+	},
+	order: async ({ request }) => {
 		const form = await superValidate(request, orderSchema);
 
 		// Convenient validation check:

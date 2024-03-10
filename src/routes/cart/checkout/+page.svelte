@@ -7,6 +7,8 @@
 	import type { PageData } from './$types';
 	import { superForm } from 'sveltekit-superforms/client';
 	import SuperDebug from 'sveltekit-superforms/client/SuperDebug.svelte';
+	import { enhance as svelteEnhance } from '$app/forms';
+	import { toast } from 'svelte-sonner';
 
 	export let data: PageData;
 
@@ -86,7 +88,44 @@
 						</p>
 					</div>
 
-					<form method="POST" use:enhance class="flex w-full flex-col gap-2">
+					{#if data.isAdmin}
+						<form
+							method="POST"
+							action="?/details"
+							use:svelteEnhance={(f) => {
+								return async ({ update, result }) => {
+									try {
+										let tId = toast.loading('Loading');
+										await update({ reset: false });
+
+										if (result.type === 'success') {
+											$form.name = result.data.name;
+											$form.email = result.data.email;
+											$form.phone = result.data.phone;
+											$form.address1 = result.data.address1;
+											$form.address2 = result.data.address2;
+											$form.city = result.data.city;
+											$form.province = result.data.province;
+											$form.zipcode = result.data.zipcode;
+										}
+										toast.dismiss(tId);
+										toast.success('Restored user details');
+									} catch (e) {
+										toast.dismiss(tId);
+										toast.error('User does not exist');
+									}
+
+									// console.log(data);
+									// console.log(f.formData.get('name'));
+								};
+							}}
+							class="mb-4 flex w-full flex-col gap-2 rounded bg-slate-700 p-4"
+						>
+							<Textbox type="text" name="email" description="Restore user by email" value="" />
+						</form>
+					{/if}
+
+					<form method="POST" action="?/order" use:enhance class="flex w-full flex-col gap-2">
 						<Textbox
 							type="text"
 							name="name"
