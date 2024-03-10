@@ -12,7 +12,7 @@ model Line {
   id              String @id @default(uuid())
   productName     String
   productId       String
-  price           Int
+  price           Int    
   baseColour      String
   faceplateColour String
   logoTypeLeft    String
@@ -49,12 +49,12 @@ model Order {
   shipping      Shipping?  @relation(fields: [shippingId], references: [id])
   discount      Discount? @relation(fields: [discountCode], references: [code])
   discountCode  String?
-  discountAmount Int?
+  discountAmount Float?
 }
 
 model Discount {
   code    String  @id
-  amount  Int
+  amount  Float   @default(0)
   // union type of percentage or number
   type    String  @default("percentage")
   enabled Boolean @default(true)
