@@ -54,7 +54,7 @@ model Order {
 
 model Discount {
   code    String  @id
-  amount  Decimal   @default(0)
+  amount  Float   @default(0)
   // union type of percentage or number
   type    String  @default("percentage")
   enabled Boolean @default(true)
