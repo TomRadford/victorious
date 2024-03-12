@@ -94,7 +94,7 @@
 </div>
 <div class="mt-5 flex w-full flex-col justify-between gap-4 md:flex-row md:items-end">
 	<div>
-		<div class="">Total:</div>
+		<div class="">Total{discountAmount ? ` (with discount):` : `:`}</div>
 		<p class="text-2xl font-bold">
 			{formatCurrency(totalWithoutDiscount - discountAmount)}
 		</p>
