@@ -2,13 +2,13 @@
 
 Young website for @[peakza](https://github.com/PeaksZA)'s website - selling custom in-ear monitors (IEM's)
 
-Built with SvelteKit using Typescript. 
+Built with SvelteKit using Typescript.
 I used Superforms with Zod for form validation (so lovely!).
-I used Tailwind for styling + DaisyUI to build nice components quickly. 
+I used Tailwind for styling + DaisyUI to build nice components quickly.
 For emails, React Email makes a guest appearance - since all you need is the render
 function to run server-side to spit out some tasty email-friendly HTML :)
 
-Was a fun one to build! 
+Was a fun one to build!
 
 ## Features
 
@@ -25,6 +25,12 @@ A local Postgres db (you can cd into this project and run `docker compose -f doc
 See `.env.example`
 
 ```bash
+# if you have a fresh db
+npx primsa db push
+
+# if you already have a db schema
+npx primsa migrate dev
+
 pnpm i
 
 pnpm run dev
