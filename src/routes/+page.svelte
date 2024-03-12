@@ -1,16 +1,19 @@
 <script>
-
-
 </script>
+
 <svelte:head>
 	<title>Victorious Audio | Custom IEMS</title>
 	<!-- Victorious Audio is a custom mould in-ear monitor company based in South Africa. Experience superior sound and comfort and an extremely affordable price. -->
-	<meta charset="utf-8">
-	<meta name="description" content="Victorious Audio is a custom mould in-ear monitor company based in South Africa. Experience superior sound and comfort and an extremely affordable price.">
-	<meta name="google-site-verification" content="+nxGUDJ4QpAZ5l9Bsjdi102tLVC21AIh5d1Nl23908vVuFHs34=">
-
+	<meta charset="utf-8" />
+	<meta
+		name="description"
+		content="Victorious Audio is a custom mould in-ear monitor company based in South Africa. Experience superior sound and comfort and an extremely affordable price."
+	/>
+	<meta
+		name="google-site-verification"
+		content="+nxGUDJ4QpAZ5l9Bsjdi102tLVC21AIh5d1Nl23908vVuFHs34="
+	/>
 </svelte:head>
-
 
 <!--Main-->
 <div class="">
@@ -26,19 +29,21 @@
 				Precision Engineering, Personalized Experience
 			</p>
 
-			<div class="flex items-center justify-center gap-4 pt-4">
+			<div class="flex flex-wrap items-center justify-center gap-4 pt-4">
 				<a href="/products" class="btn btn-outline btn-primary"> Products </a>
 				<a href="/how-to-order" class="btn btn-outline btn-primary"> How to order </a>
-				<a href="/terms-and-conditions" class="btn btn-outline btn-primary"> Terms and Conditions </a>
+				<a href="/terms-and-conditions" class="btn btn-outline btn-primary">
+					Terms and Conditions
+				</a>
 			</div>
 		</div>
 
 		<!--Right Col-->
 		<div class="w-full overflow-hidden p-12 xl:w-3/5">
-			<div style:--tag="case">
-				<a href="/images/case">
+			<div style:--tag="side-profile">
+				<a href="/images/side-profile">
 					<enhanced:img
-						src="/src/lib/assets/images/case.png"
+						src="/src/lib/assets/images/side-profile.png"
 						class="mx-auto w-full transform transition duration-700 ease-in-out hover:scale-105 md:w-4/5"
 					/>
 				</a>
@@ -47,10 +52,10 @@
 	</div>
 	<div class="container mx-auto flex flex-wrap items-center">
 		<div class=" flex flex-col-reverse items-center gap-10 md:pt-16 xl:flex-row">
-			<a href="/images/side-profile">
-				<div style:--tag="side-profile">
+			<a href="/images/case">
+				<div style:--tag="case">
 					<enhanced:img
-						src="/src/lib/assets/images/side-profile.jpeg"
+						src="/src/lib/assets/images/case.jpeg"
 						class="mx-auto w-1/2 transform transition duration-700 ease-in-out hover:scale-105"
 					/>
 				</div>
