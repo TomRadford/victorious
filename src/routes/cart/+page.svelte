@@ -7,7 +7,7 @@
 	import type { CartLine } from '$lib/types/cart';
 	import { toast } from 'svelte-sonner';
 
-	export let form: FormData;
+	export let form;
 
 	$: {
 		if (form?.discount && !form?.fail) {
