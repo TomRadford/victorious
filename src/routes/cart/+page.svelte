@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
 	import CartTable from '$lib/components/CartTable.svelte';
-	import Textbox from '$lib/components/Textbox.svelte';
 	import { cartLineItemsStore, cartStore } from '$lib/stores/cart';
 	import { discountStore } from '$lib/stores/discount';
 	import type { CartLine } from '$lib/types/cart';

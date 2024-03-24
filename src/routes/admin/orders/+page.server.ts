@@ -1,4 +1,5 @@
 import prisma from '$lib/prisma';
+import type { Order } from '@prisma/client';
 
 export const load = async () => {
 	const orders = await prisma.order.findMany({
@@ -12,5 +13,8 @@ export const load = async () => {
 		},
 		orderBy: { createdAt: 'desc' }
 	});
-	return { orders };
+	// https://github.com/prisma/prisma/issues/20627
+	// due to the Decimal type, we need to parse the orders to JSON and back to JS objects
+	// ... big oof but it works
+	return { orders: JSON.parse(JSON.stringify(orders)) as Order[] };
 };
