@@ -78,23 +78,24 @@ export const actions = {
 			// Again, return { form } and things will just work.
 			return message(form, { form });
 		}
+		const discountCode = form.data.discountCode;
+		const discount = discountCode
+			? await prisma.discount.findUnique({
+					where: { code: discountCode, enabled: true }
+				})
+			: null;
 
 		// Validate discount code
-		const discountCode = form.data.discountCode;
-
-		const discount = await prisma.discount.findUnique({
-			where: { code: discountCode, enabled: true }
-		});
-
 		if (discountCode && !discount) {
 			return message(form, 'Invalid discount code');
 		}
 
 		const totalWithoutDiscount = form.data.order.reduce((acc, line) => acc + line.price, 0);
-		const discountAmount =
-			(discount?.type === 'percentage'
-				? totalWithoutDiscount * (discount.amount / 100)
-				: discount?.amount) ?? 0;
+		const discountAmount = discount
+			? (discount?.type === 'percentage'
+					? totalWithoutDiscount * (discount.amount / 100)
+					: discount?.amount) ?? 0
+			: 0;
 
 		// Create DB Entries
 		let existingCustomer = await prisma.customer.findUnique({
